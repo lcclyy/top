@@ -1,0 +1,274 @@
+html,
+body {
+	height: 100%;
+	width: 100%;
+}
+
+#gl {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 1000;
+}
+
+.bl{
+	float: left;
+	background: #6ECADC;
+	height: 100%;
+	width: 100%;
+
+
+}
+
+@media only screen and (max-width:600px) {
+	#gl {
+		 position: static;
+	}
+
+	.bl{
+		height: auto;
+	}
+}
+
+.bl-top {
+	margin: 2rem auto;
+	padding: 0;
+	width: 100%;
+}
+
+.bl-top svg {
+	width: 20%;
+	margin: 0 auto;
+	display: block;
+}
+
+.bl-top h2 {
+	font-weight: 500;
+	color: #fff;
+	text-align: center;
+}
+
+.bl-top img {
+	border: 0.1875rem solid #FFF;
+	border-radius: 0.625rem;
+	margin: 2rem auto;
+	display: block;
+}
+
+.icon2 {
+	width: 4em;
+	height: 4em;
+	vertical-align: middle;
+	fill: currentColor;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.lx {
+	width: 40%;
+	height: auto;
+	text-align: center;
+	margin: 4rem auto;
+}
+
+.lx h4 {
+	color: #fff;
+	vertical-align: middle;
+}
+
+.ico {
+	margin-top: 2rem;
+}
+
+.icon1 {
+	width: 1.5em;
+	height: 1.5em;
+	vertical-align: middle;
+	fill: currentColor;
+	overflow: hidden;
+	display: block;
+	float: left;
+}
+
+.lx p {
+	font-size: 1.25rem;
+	color: #fff;
+}
+
+/* 右边内容 */
+.con {
+	float: left;
+	background: #EDEDED;
+	height: auto;
+}
+
+.nav {
+
+	border-radius: 0.25rem;
+	width: 50%;
+	margin-top: 5rem;
+	height: auto;
+
+}
+
+.nav ul {
+	width: 80%;
+	height: auto;
+	margin-left: 2rem;
+	display: flex;
+	justify-content: center;
+}
+
+@media only screen and (max-width:600px) {
+	.nav {
+		width: 100%;
+		margin: 1.25rem auto;
+	}
+
+	.nav ul {
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	/* .tq {
+		display: none;
+	} */
+}
+
+.nav li {
+	text-align: center;
+	line-height: 3rem;
+	padding: 0 1rem;
+	margin: 0 .5rem;
+	/* border: 0.0625rem solid red; */
+
+}
+
+.nav a {
+	color: #666;
+	letter-spacing: 0.1875rem;
+	font-size: 1.5rem;
+
+
+}
+
+.nav li:hover {
+	background: #f0dcb3;
+	border-radius: 0.25rem;
+
+}
+
+.nav a:hover {
+	color: #333;
+	text-decoration: none;
+}
+
+.tq {
+	position: absolute;
+	right: 0;
+	top: 2rem;
+	width: 18.75rem;
+}
+
+/* 工作经历板块 */
+.gs {
+	margin-top: 2rem;
+	margin-left: 0;
+	padding: 0;
+
+}
+
+.sk1 {
+	width: 18.75rem;
+	height: 3.125rem;
+	background-color: #6ECADC;
+	border-radius: 0.25rem;
+	margin: 2.5rem 0 2.5rem -1.5rem;
+}
+
+.sk1 p {
+	line-height: 3.125rem;
+	color: white;
+	text-align: center;
+	font-size: 1.25rem;
+	letter-spacing: 0.625rem;
+}
+
+.text {
+	margin: 1.25rem 1.25rem 0 1.25rem;
+	width: 90%;
+	margin: 0 auto;
+	
+}
+.text p{
+	line-height: 30px;
+}
+
+.xx {
+	margin-top: 20px;
+	border-bottom: 1px dashed #999;
+	margin: 0 auto;
+}
+
+/* 技能板块 */
+.jn {
+	margin: 0.625rem auto;
+	width: 100%;
+}
+
+.jn .row {
+	width: 90%;
+	margin: auto;
+}
+
+.icon {
+	width: 5em;
+	height: 5em;
+	vertical-align: -0.15em;
+	fill: currentColor;
+	overflow: hidden;
+	display: block;
+}
+
+.jn .icon {
+	margin: 1.25rem auto;
+	border-radius: 0.375rem;
+	border: 0.0625rem solid #e5e5e5;
+	padding: 0.625rem;
+
+
+}
+
+.jn1 {
+	margin: 1.25rem 0 1.25rem 1.25rem;
+}
+
+.jingdu {
+	width: 80%;
+	margin: 2rem auto;
+}
+
+.jy1 {
+	width: 60%;
+	margin: 0 auto;
+}
+
+/* 底部备案 */
+
+.beian {
+	width: 100%;
+	height: 4rem;
+	/* background-color: #6ECADC; */
+	display: flex;
+	justify-content: center;
+}
+
+.beian1 {
+	line-height: 4rem;
+
+}
+
+
+.beian1 a:hover {
+	color: #333;
+}
