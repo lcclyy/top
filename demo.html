@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>技术文档管理</title>
+  <style type="text/css">
+    .grid {
+      margin: auto;
+      width: 1200px;
+      text-align: center;
+    }
+    .grid table {
+      border-top: 1px solid #C2D89A;
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .grid th,td {
+      padding: 10;
+      border: 1px dashed #F3DCAB;
+      height: 35px;
+      line-height: 35px;
+    }
+    .grid th {
+      background-color: #F3DCAB;
+    }
+	.grid tr:hover{
+		background-color: #F3DCAB;
+	}
+    .grid .book {
+      padding-bottom: 10px;
+      padding-top: 5px;
+      background-color: #F3DCAB;
+    }
+    .grid .total {
+      height: 30px;
+      line-height: 30px;
+      background-color: #F3DCAB;
+      border-top: 1px solid #C2D89A;
+    }
+	#add{
+		width: 300px;
+	}
+  </style>
+</head>
+<body bgcolor="#f1f1f1">
+  <div id="app">
+    <div class="grid">
+      <div>
+        <h1>技术文档管理</h1>
+        <div class="book">
+          <div>
+            <label for="id">
+              编号：
+            </label>
+            <input type="text" id="id" v-model='id' :disabled="flag" v-focus>
+            <label for="name">
+              名称：
+            </label>
+            <input type="text" id="name" v-model='name'>
+			<label for="add">
+			  地址：
+			</label>
+			<input type="text" id="add" v-model='add'>
+            <button @click='handle' :disabled="submitFlag">添加</button>
+          </div>
+        </div>
+      </div>
+      <div class="total">
+        <span>图书总数：</span>
+        <span>{{total}}</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>名称</th>
+            <th>地址</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr :key='item.id' v-for='item in books'>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td><a :href=item.add>{{item.add}}</a></td>
+            <td>
+              <a href="" @click.prevent='toEdit(item.id)'>修改</a>
+              <span>|</span>
+              <a href="" @click.prevent='deleteBook(item.id)'>删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script type="text/javascript" src="js/vue.js"></script>
+  <script type="text/javascript">
+    /*
+      图书管理-添加图书
+    */
+    Vue.directive('focus', {
+      inserted: function (el) {
+        el.focus();
+      }
+    });
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: false,
+        submitFlag: false,
+        id: '',
+        name: '',
+		add:'',
+        books: []
+      },
+      methods: {
+        handle: function(){
+          if(this.flag) {
+            // 编辑图书
+            // 就是根据当前的ID去更新数组中对应的数据
+            this.books.some((item) => {
+              if(item.id == this.id) {
+                item.name = this.name;
+				item.add = this.add;
+                // 完成更新操作之后，需要终止循环
+                return true;
+              }
+            });
+            this.flag = false;
+          }else{
+            // 添加图书
+            var book = {};
+            book.id = this.id;
+            book.name = this.name;
+            book.add = this.add;
+            this.books.push(book);
+            // 清空表单
+            this.id = '';
+            this.name = '';
+			this.add = '';
+          }
+          // 清空表单
+          this.id = '';
+          this.name = '';
+		  this.add = '';
+        },
+        toEdit: function(id){
+          // 禁止修改ID
+          this.flag = true;
+          console.log(id)
+          // 根据ID查询出要编辑的数据
+          var book = this.books.filter(function(item){
+            return item.id == id;
+          });
+          console.log(book)
+          // 把获取到的信息填充到表单
+          this.id = book[0].id;
+          this.name = book[0].name;
+		  this.add = book[0].add;
+        },
+        deleteBook: function(id){
+          // 删除图书
+          // 根据id从数组中查找元素的索引
+          // var index = this.books.findIndex(function(item){
+          //   return item.id == id;
+          // });
+          // 根据索引删除数组元素
+          // this.books.splice(index, 1);
+          // -------------------------
+          // 方法二：通过filter方法进行删除
+          this.books = this.books.filter(function(item){
+            return item.id != id;
+          });
+        }
+      },
+      computed: {
+        total: function(){
+          // 计算图书的总数
+          return this.books.length;
+        }
+      },
+      watch: {
+        name: function(val) {
+          // 验证图书名称是否已经存在
+          var flag = this.books.some(function(item){
+            return item.name == val;
+          });
+          if(flag) {
+            // 图书名称存在
+            this.submitFlag = true;
+          }else{
+            // 图书名称不存在
+            this.submitFlag = false;
+          }
+        }
+      },
+      mounted: function(){
+        // 该生命周期钩子函数被触发的时候，模板已经可以使用
+        // 一般此时用于获取后台数据，然后把数据填充到模板
+        var data = [{
+          id: 1,
+          name: '菜鸟教程',
+          add:'https://www.runoob.com/'
+        },{
+          id: 2,
+          name: 'w3cschool',
+          add: 'https://www.w3cschool.cn/tutorial'
+        },{
+          id: 3,
+          name: 'w3school',
+          add: 'https://www.w3school.com.cn/js/index.asp'
+        },{
+          id: 4,
+          name: 'React',
+          add: 'https://react.docschina.org/'
+        },{
+          id: 5,
+          name: 'Vue',
+          add: 'https://vuejs.bootcss.com/guide/installation.html'
+        },{
+          id: 6,
+          name: 'Bootcdn前端开源',
+          add: 'https://www.bootcdn.cn/'  
+        },{
+		  id: 7,
+		  name: 'webpack',
+		  add: 'https://www.webpackjs.com/'  
+		},{
+		  id: 8,
+		  name: '阿里巴巴矢量图标库',
+		  add: 'https://www.iconfont.cn/?spm=a313x.7781069.1998910419.d4d0a486a'  
+		},{
+		  id: 9,
+		  name: 'GitHub',
+		  add: 'https://github.com/'  
+		},{
+		  id: 10,
+		  name: 'CSS3动画样式库',
+		  add: 'https://www.w3cways.com/css3-animation-tool'  
+		},{
+		  id: 11,
+		  name: 'B站（只有你想不到的，其他都有）',
+		  add: 'https://www.bilibili.com/'  
+		}];
+        this.books = data;
+      }
+    });
+  </script>
+</body>
+</html>
